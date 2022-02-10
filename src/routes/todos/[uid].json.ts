@@ -11,7 +11,8 @@ export async function patch(requestEvent: RequestEvent) {
   
   const text = body.get("text");
   const todo = {
-    text: text.toString(),
+    text: text,
+    done: body.has('done') ? !!body.get('done') : undefined
   }
 
   return api(requestEvent, todo);

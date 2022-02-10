@@ -23,7 +23,11 @@ export function api(requestEvent: RequestEvent, data?: Record<string, unknown>) 
     case 'PATCH':
       todos = todos.map(todo => {
         if (todo.uid === requestEvent.params.uid) {
-          todo.text = data.text as string;
+          if (data.text) {
+            todo.text = data.text as string;
+          } else {
+            todo.done = data.done as boolean;
+          }
         }
         return todo;
       });
