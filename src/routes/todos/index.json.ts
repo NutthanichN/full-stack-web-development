@@ -1,31 +1,24 @@
 import type { RequestHandler, RequestEvent, EndpointOutput } from "@sveltejs/kit"
+import { api } from './_api';
 
-let todos: Todo[] = [];
 
-export function get({ params })  {
-  return {
-    status: 200,
-    body: todos
-  }
+export function get(requestEvent)  {
+  return api(requestEvent);
 }
 
 export async function post(requstEvent: RequestEvent): Promise<EndpointOutput> {
-  let { params, request } = requstEvent
+  const { params, request } = requstEvent
   const body = await request.formData();
   
-  let text = body.get("text");
-  todos.push({
+  const text = body.get("text");
+  const todo = {
     created_at: new Date(),
     done: false,
-    text: text.toString()
-  });
+    text: text.toString(),
+    uid: `${Date.now()}`
+  }
 
   console.log(text);
 
-  return {
-    status: 303,
-    headers: {
-      location: '/'
-    }
-  }
+  return api(requstEvent, todo);
 }
