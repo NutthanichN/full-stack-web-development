@@ -1,5 +1,9 @@
 import adapter from '@sveltejs/adapter-auto';
+// import vercel from '@sveltejs/adapter-vercel';
 import preprocess from 'svelte-preprocess';
+
+// const adapter = require('@sveltejs/adapter-auto');
+// const preprocess = require('svelte-preprocess');
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -24,3 +28,4 @@ const config = {
 };
 
 export default config;
+// module.exports = config;

@@ -13,9 +13,9 @@
     "vercel-build": "prisma migrate deploy && npm run build"
   },
   "devDependencies": {
+    "prisma": "^3.9.2",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
-    "prisma": "^3.9.2",
     "svelte": "^3.44.0",
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.9.4",
