@@ -15,7 +15,6 @@ export async function post(requestEvent: RequestEvent): Promise<EndpointOutput> 
     created_at: new Date(),
     done: false,
     text: text.toString(),
-    uid: `${Date.now()}`
   }
 
   return api(requestEvent, todo);
