@@ -1,0 +1,17 @@
+// Learn more about this file: https://www.prisma.io/docs/concepts/components/prisma-schema
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets =  ["native"]
+}
+
+model Todo {
+  uid         String @id @default(cuid())
+  created_at  DateTime
+  text        String
+  done        Boolean
+}
