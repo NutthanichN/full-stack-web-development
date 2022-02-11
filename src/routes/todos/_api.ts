@@ -6,21 +6,23 @@ export function api(requestEvent: RequestEvent, data?: Record<string, unknown>) 
   let body = {};
   let status = 500;
 
-  switch (requestEvent.request.method.toUpperCase()) {
-    case 'GET':
+  const request = requestEvent.request;
+
+  switch (request.method.toUpperCase()) {
+    case "GET":
       body = todos;
       status = 200;
       break;
-    case 'POST':
+    case "POST":
       todos.push(data as Todo);
       body = data;
       status = 201;
       break;
-    case 'DELETE':
+    case "DELETE":
       todos = todos.filter(todo => todo.uid !== requestEvent.params.uid);
       status = 200;
       break;
-    case 'PATCH':
+    case "PATCH":
       todos = todos.map(todo => {
         if (todo.uid === requestEvent.params.uid) {
           if (data.text) {
@@ -31,17 +33,19 @@ export function api(requestEvent: RequestEvent, data?: Record<string, unknown>) 
         }
         return todo;
       });
+      body = todos.find(todo => todo.uid === requestEvent.params.uid);
       status = 200;
       break;
     default:
       break;
   }
 
-  if (requestEvent.request.method.toUpperCase() !== 'GET') {
+  
+  if (request.method.toUpperCase() !== "GET" && request.headers.get("accept") !== "application/json") {
     return {
       status: 303,
       headers: {
-        location: '/'
+        location: "/"
       }
     }
   }
